@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marriage Certificate Generator</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -9,145 +10,345 @@
 <style>
 body {
   font-family: "Times New Roman", serif;
-  background: #f4f4f4;
-  text-align: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  margin: 0;
   padding: 20px;
 }
 
-input {
-  display: block;
-  margin: 8px auto;
-  padding: 8px;
-  width: 300px;
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  overflow: hidden;
 }
 
-button {
-  margin-top: 15px;
-  padding: 10px 20px;
+.header {
+  background: #2c3e50;
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.header p {
+  margin: 10px 0 0 0;
+  opacity: 0.9;
+}
+
+.form-section {
+  padding: 40px;
+  background: #f8f9fa;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+.input-group input {
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
   font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.generate-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  font-size: 18px;
+  border-radius: 50px;
   cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: block;
+  margin: 0 auto;
+}
+
+.generate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
 #certificate {
-  width: 800px;
+  width: 8.5in;
+  height: 11in;
   margin: 40px auto;
+  background-image: url('certificate.png.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Overlay for better text readability if needed */
+.certificate-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255,255,255,0.1);
   padding: 60px;
-  background: white;
-  border: 4px solid #b89b5e;
+  box-sizing: border-box;
 }
 
-.title {
-  font-size: 28px;
+/* Text positioning - adjust these based on your certificate image */
+.certificate-text {
+  position: absolute;
+  color: #2c3e50;
   font-weight: bold;
-  margin-bottom: 20px;
 }
 
-.section {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
+.groom-name {
+  top: 300px;
+  left: 150px;
+  font-size: 24px;
 }
 
-.column {
-  width: 45%;
-  text-align: left;
+.bride-name {
+  top: 300px;
+  right: 150px;
+  font-size: 24px;
 }
 
-.line {
-  margin-bottom: 12px;
+.mahr-amount {
+  top: 400px;
+  left: 150px;
+  font-size: 20px;
 }
 
-.signature-section {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 60px;
+.ceremony-date {
+  top: 400px;
+  right: 150px;
+  font-size: 20px;
 }
 
-.signature {
-  width: 40%;
+.imam-name {
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 22px;
+}
+
+.download-section {
   text-align: center;
-  border-top: 1px solid black;
-  padding-top: 8px;
+  padding: 30px;
+  background: #f8f9fa;
+}
+
+.download-btn {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: background 0.3s;
+}
+
+.download-btn:hover {
+  background: #219a52;
+}
+
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  #certificate {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 8.5/11;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
 }
 </style>
 </head>
 
 <body>
-
-<h2>Marriage Certificate Form</h2>
-
-<input id="groomName" placeholder="Groom Full Name">
-<input id="brideName" placeholder="Bride Full Name">
-<input id="mahr" placeholder="Mahr Amount">
-<input id="date" placeholder="Ceremony Date">
-<input id="imamName" placeholder="Imam Full Name">
-
-<button onclick="generateCertificate()">Generate Certificate</button>
+<div class="container">
+  <div class="header">
+    <h1>Marriage Certificate Generator</h1>
+    <p>Create beautiful Islamic marriage certificates instantly</p>
+  </div>
+  
+  <div class="form-section">
+    <div class="form-grid">
+      <div class="input-group">
+        <label for="groomName">Groom's Full Name</label>
+        <input type="text" id="groomName" placeholder="Enter groom's full name" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="brideName">Bride's Full Name</label>
+        <input type="text" id="brideName" placeholder="Enter bride's full name" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="mahr">Mahr Amount</label>
+        <input type="text" id="mahr" placeholder="Enter mahr amount" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="date">Ceremony Date</label>
+        <input type="date" id="date" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="imamName">Imam's Full Name</label>
+        <input type="text" id="imamName" placeholder="Enter imam's full name" required>
+      </div>
+    </div>
+    
+    <button class="generate-btn" onclick="generateCertificate()">Generate Certificate</button>
+  </div>
+</div>
 
 <div id="certificate" style="display:none;">
-  <div class="title">MUSLIM MARRIAGE CERTIFICATE</div>
-
-  <p>
-    This certifies that <b id="groomOutput"></b> and 
-    <b id="brideOutput"></b> were united in marriage
-    according to Islamic law.
-  </p>
-
-  <div class="section">
-    <div class="column">
-      <div class="line"><b>Groom:</b> <span id="groomNameOut"></span></div>
-      <div class="line"><b>Mahr:</b> <span id="mahrOut"></span></div>
-    </div>
-
-    <div class="column">
-      <div class="line"><b>Bride:</b> <span id="brideNameOut"></span></div>
-      <div class="line"><b>Date:</b> <span id="dateOut"></span></div>
-    </div>
+  <div class="certificate-overlay">
+    <div class="certificate-text groom-name" id="groomNameOut"></div>
+    <div class="certificate-text bride-name" id="brideNameOut"></div>
+    <div class="certificate-text mahr-amount" id="mahrOut"></div>
+    <div class="certificate-text ceremony-date" id="dateOut"></div>
+    <div class="certificate-text imam-name" id="imamNameOut"></div>
   </div>
+</div>
 
-  <div class="signature-section">
-    <div class="signature" id="groomSig">Groom Signature</div>
-    <div class="signature" id="brideSig">Bride Signature</div>
-  </div>
-
-  <div class="signature-section">
-    <div class="signature" id="imamOut">Imam Signature</div>
-  </div>
-
-  <p style="margin-top:50px;">
-    Imam: <b id="imamNameOut"></b>
-  </p>
+<div id="downloadSection" class="download-section" style="display:none;">
+  <h3>Your certificate is ready!</h3>
+  <p>You can now download your marriage certificate as a PDF.</p>
+  <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
+  <button class="download-btn" onclick="resetForm()" style="background: #e74c3c;">Create Another</button>
 </div>
 
 <script>
 function generateCertificate() {
-
   // Get values
-  const groom = document.getElementById("groomName").value;
-  const bride = document.getElementById("brideName").value;
-  const mahr = document.getElementById("mahr").value;
+  const groom = document.getElementById("groomName").value.trim();
+  const bride = document.getElementById("brideName").value.trim();
+  const mahr = document.getElementById("mahr").value.trim();
   const date = document.getElementById("date").value;
-  const imam = document.getElementById("imamName").value;
+  const imam = document.getElementById("imamName").value.trim();
+
+  // Validate required fields
+  if (!groom || !bride || !mahr || !date || !imam) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+
+  // Format date
+  const dateObj = new Date(date);
+  const formattedDate = dateObj.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
 
   // Fill certificate
-  document.getElementById("groomOutput").innerText = groom;
-  document.getElementById("brideOutput").innerText = bride;
-
   document.getElementById("groomNameOut").innerText = groom;
   document.getElementById("brideNameOut").innerText = bride;
   document.getElementById("mahrOut").innerText = mahr;
-  document.getElementById("dateOut").innerText = date;
+  document.getElementById("dateOut").innerText = formattedDate;
   document.getElementById("imamNameOut").innerText = imam;
 
-  document.getElementById("imamOut").innerText = imam;
-
-  // Show certificate
-  const cert = document.getElementById("certificate");
-  cert.style.display = "block";
-
-  // Convert to PDF
-  html2pdf().from(cert).save("Marriage_Certificate.pdf");
+  // Show certificate and download section
+  document.getElementById("certificate").style.display = "block";
+  document.getElementById("downloadSection").style.display = "block";
+  
+  // Scroll to certificate
+  document.getElementById("certificate").scrollIntoView({ 
+    behavior: 'smooth',
+    block: 'center'
+  });
 }
+
+function downloadPDF() {
+  const cert = document.getElementById("certificate");
+  const filename = `Marriage_Certificate_${new Date().getFullYear()}.pdf`;
+  
+  const options = {
+    margin: 0,
+    filename: filename,
+    image: { type: 'jpeg', quality: 1.0 },
+    html2canvas: { 
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      letterRendering: true
+    },
+    jsPDF: { 
+      unit: 'in', 
+      format: 'letter', 
+      orientation: 'portrait'
+    }
+  };
+  
+  html2pdf().set(options).from(cert).save();
+}
+
+function resetForm() {
+  // Clear form fields
+  document.getElementById("groomName").value = "";
+  document.getElementById("brideName").value = "";
+  document.getElementById("mahr").value = "";
+  document.getElementById("date").value = "";
+  document.getElementById("imamName").value = "";
+  
+  // Hide certificate and download section
+  document.getElementById("certificate").style.display = "none";
+  document.getElementById("downloadSection").style.display = "none";
+  
+  // Scroll back to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Add form validation on input
+document.addEventListener('DOMContentLoaded', function() {
+  const inputs = document.querySelectorAll('input[required]');
+  inputs.forEach(input => {
+    input.addEventListener('invalid', function(e) {
+      e.target.setCustomValidity('This field is required.');
+    });
+    input.addEventListener('input', function(e) {
+      e.target.setCustomValidity('');
+    });
+  });
+});
 </script>
 
 </body>

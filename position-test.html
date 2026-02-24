@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate Position Tester</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: #f0f0f0;
+}
+
+#certificate {
+  width: 8.5in;
+  height: 11in;
+  margin: 20px auto;
+  background-image: url('certificate.png.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.text-overlay {
+  position: absolute;
+  background: rgba(255, 0, 0, 0.7);
+  color: white;
+  padding: 2px 4px;
+  font-size: 12px;
+  border: 1px solid red;
+  font-weight: bold;
+}
+
+.groom-name { top: 300px; left: 150px; background: rgba(0, 100, 255, 0.7); }
+.bride-name { top: 300px; right: 150px; background: rgba(255, 100, 0, 0.7); }
+.mahr-amount { top: 400px; left: 150px; background: rgba(0, 255, 100, 0.7); }
+.ceremony-date { top: 400px; right: 150px; background: rgba(255, 0, 100, 0.7); }
+.imam-name { bottom: 150px; left: 50%; transform: translateX(-50%); background: rgba(100, 0, 255, 0.7); }
+
+.instructions {
+  max-width: 8.5in;
+  margin: 0 auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.color-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+}
+</style>
+</head>
+<body>
+
+<div class="instructions">
+  <h1>Certificate Position Tester</h1>
+  <p>This tool helps you visualize where text will be placed on your certificate. Each colored rectangle shows the position of different text elements:</p>
+  
+  <div class="color-legend">
+    <div class="legend-item">
+      <div class="legend-color" style="background: rgba(0, 100, 255, 0.7);"></div>
+      <span>Groom's Name</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: rgba(255, 100, 0, 0.7);"></div>
+      <span>Bride's Name</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: rgba(0, 255, 100, 0.7);"></div>
+      <span>Mahr Amount</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: rgba(255, 0, 100, 0.7);"></div>
+      <span>Ceremony Date</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: rgba(100, 0, 255, 0.7);"></div>
+      <span>Imam's Name</span>
+    </div>
+  </div>
+  
+  <h3>How to use:</h3>
+  <ol>
+    <li>Look at the colored rectangles on the certificate below</li>
+    <li>If they don't align with your certificate fields, note the adjustments needed</li>
+    <li>Edit the CSS classes in index.html to match your certificate layout</li>
+    <li>Refresh this page to see the changes</li>
+  </ol>
+  
+  <h3>CSS Classes to edit in index.html:</h3>
+  <pre>.groom-name { top: 300px; left: 150px; }
+.bride-name { top: 300px; right: 150px; }
+.mahr-amount { top: 400px; left: 150px; }
+.ceremony-date { top: 400px; right: 150px; }
+.imam-name { bottom: 150px; left: 50%; }</pre>
+</div>
+
+<div id="certificate">
+  <div class="text-overlay groom-name">GROOM NAME</div>
+  <div class="text-overlay bride-name">BRIDE NAME</div>
+  <div class="text-overlay mahr-amount">MAHR AMOUNT</div>
+  <div class="text-overlay ceremony-date">DATE</div>
+  <div class="text-overlay imam-name">IMAM NAME</div>
+</div>
+
+<div class="instructions">
+  <h3>Tips:</h3>
+  <ul>
+    <li><strong>top/bottom:</strong> Distance from top/bottom edge in pixels</li>
+    <li><strong>left/right:</strong> Distance from left/right edge in pixels</li>
+    <li><strong>font-size:</strong> Adjust text size (e.g., 24px, 20px)</li>
+    <li>Use browser developer tools (F12) to fine-tune positioning</li>
+    <li>Test with actual text to ensure proper alignment</li>
+  </ul>
+  
+  <p><strong>Note:</strong> Delete this file (position-test.html) before uploading to GitHub Pages - it's just for testing!</p>
+</div>
+
+</body>
+</html>
