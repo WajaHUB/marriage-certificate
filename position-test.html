@@ -35,11 +35,25 @@ body {
   font-weight: bold;
 }
 
-.groom-name { top: 300px; left: 150px; background: rgba(0, 100, 255, 0.7); }
-.bride-name { top: 300px; right: 150px; background: rgba(255, 100, 0, 0.7); }
-.mahr-amount { top: 400px; left: 150px; background: rgba(0, 255, 100, 0.7); }
-.ceremony-date { top: 400px; right: 150px; background: rgba(255, 0, 100, 0.7); }
-.imam-name { bottom: 150px; left: 50%; transform: translateX(-50%); background: rgba(100, 0, 255, 0.7); }
+/* Groom Info */
+.groom-name { top: 420px; left: 315px; background: rgba(0, 100, 255, 0.7); }
+.groom-dob { top: 450px; left: 315px; background: rgba(0, 120, 255, 0.7); }
+.groom-address { top: 480px; left: 315px; background: rgba(0, 140, 255, 0.7); }
+.groom-status { top: 515px; left: 315px; background: rgba(0, 160, 255, 0.7); }
+
+/* Bride Info */
+.bride-name { top: 420px; right: 100px; background: rgba(255, 100, 0, 0.7); }
+.bride-dob { top: 450px; right: 100px; background: rgba(255, 120, 0, 0.7); }
+.bride-address { top: 480px; right: 100px; background: rgba(255, 140, 0, 0.7); }
+.bride-status { top: 515px; right: 100px; background: rgba(255, 160, 0, 0.7); }
+
+/* Other fields */
+.ceremony-date { top: 420px; right: 45px; background: rgba(255, 0, 100, 0.7); }
+.mahr-amount { top: 580px; left: 365px; background: rgba(0, 255, 100, 0.7); }
+.witness1-name { top: 660px; left: 365px; background: rgba(100, 255, 0, 0.7); }
+.witness2-name { top: 660px; right: 100px; background: rgba(200, 255, 0, 0.7); }
+.ceremony-day { top: 780px; left: 118px; background: rgba(255, 50, 150, 0.7); }
+.imam-name { bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(100, 0, 255, 0.7); }
 
 .instructions {
   max-width: 8.5in;
@@ -117,10 +131,21 @@ body {
 
 <div id="certificate">
   <div class="text-overlay groom-name">GROOM NAME</div>
+  <div class="text-overlay groom-dob">GROOM DOB</div>
+  <div class="text-overlay groom-address">GROOM ADDRESS</div>
+  <div class="text-overlay groom-status">STATUS</div>
+  
   <div class="text-overlay bride-name">BRIDE NAME</div>
-  <div class="text-overlay mahr-amount">MAHR AMOUNT</div>
+  <div class="text-overlay bride-dob">BRIDE DOB</div>
+  <div class="text-overlay bride-address">BRIDE ADDRESS</div>
+  <div class="text-overlay bride-status">STATUS</div>
+  
   <div class="text-overlay ceremony-date">DATE</div>
-  <div class="text-overlay imam-name">IMAM NAME</div>
+  <div class="text-overlay mahr-amount">MAHR</div>
+  <div class="text-overlay witness1-name">WITNESS 1</div>
+  <div class="text-overlay witness2-name">WITNESS 2</div>
+  <div class="text-overlay ceremony-day">DAY</div>
+  <div class="text-overlay imam-name">IMAM</div>
 </div>
 
 <div class="instructions">

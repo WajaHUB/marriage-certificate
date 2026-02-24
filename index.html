@@ -66,15 +66,18 @@ body {
   color: #2c3e50;
 }
 
-.input-group input {
+.input-group input,
+.input-group select {
   padding: 12px;
   border: 2px solid #ddd;
   border-radius: 5px;
   font-size: 16px;
   transition: border-color 0.3s;
+  background: white;
 }
 
-.input-group input:focus {
+.input-group input:focus,
+.input-group select:focus {
   outline: none;
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -103,61 +106,170 @@ body {
   height: 11in;
   margin: 40px auto;
   background-image: url('certificate.png.jpeg');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  background-color: white;
 }
 
-/* Overlay for better text readability if needed */
-.certificate-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255,255,255,0.1);
-  padding: 60px;
-  box-sizing: border-box;
-}
-
-/* Text positioning - adjust these based on your certificate image */
+/* Text positioning based on your certificate layout */
 .certificate-text {
   position: absolute;
-  color: #2c3e50;
+  color: #000;
   font-weight: bold;
+  font-family: "Times New Roman", serif;
 }
 
+/* Groom Information */
 .groom-name {
-  top: 300px;
-  left: 150px;
-  font-size: 24px;
+  top: 420px;
+  left: 315px;
+  font-size: 14px;
+  width: 200px;
 }
 
+.groom-dob {
+  top: 450px;
+  left: 315px;
+  font-size: 12px;
+  width: 200px;
+}
+
+.groom-address {
+  top: 480px;
+  left: 315px;
+  font-size: 11px;
+  width: 200px;
+}
+
+.groom-status {
+  top: 515px;
+  left: 315px;
+  font-size: 12px;
+  width: 100px;
+}
+
+/* Bride Information */
 .bride-name {
-  top: 300px;
-  right: 150px;
-  font-size: 24px;
+  top: 420px;
+  right: 100px;
+  font-size: 14px;
+  width: 200px;
 }
 
-.mahr-amount {
-  top: 400px;
-  left: 150px;
-  font-size: 20px;
+.bride-dob {
+  top: 450px;
+  right: 100px;
+  font-size: 12px;
+  width: 200px;
 }
 
+.bride-address {
+  top: 480px;
+  right: 100px;
+  font-size: 11px;
+  width: 200px;
+}
+
+.bride-status {
+  top: 515px;
+  right: 100px;
+  font-size: 12px;
+  width: 100px;
+}
+
+/* Ceremony Date */
 .ceremony-date {
-  top: 400px;
-  right: 150px;
-  font-size: 20px;
+  top: 420px;
+  right: 45px;
+  font-size: 12px;
+  width: 150px;
 }
 
-.imam-name {
-  bottom: 150px;
+/* Mahr Amount */
+.mahr-amount {
+  top: 580px;
+  left: 365px;
+  font-size: 12px;
+  width: 150px;
+}
+
+/* Witnesses */
+.witness1-name {
+  top: 660px;
+  left: 365px;
+  font-size: 12px;
+  width: 180px;
+}
+
+.witness1-dob {
+  top: 695px;
+  left: 365px;
+  font-size: 11px;
+  width: 180px;
+}
+
+.witness2-name {
+  top: 660px;
+  right: 100px;
+  font-size: 12px;
+  width: 180px;
+}
+
+.witness2-dob {
+  top: 695px;
+  right: 100px;
+  font-size: 11px;
+  width: 180px;
+}
+
+/* Ceremony Details */
+.ceremony-day {
+  top: 780px;
+  left: 118px;
+  font-size: 12px;
+  width: 50px;
+}
+
+.ceremony-month {
+  top: 780px;
+  left: 250px;
+  font-size: 12px;
+  width: 80px;
+}
+
+.ceremony-year {
+  top: 780px;
+  left: 350px;
+  font-size: 12px;
+  width: 50px;
+}
+
+.ceremony-gregorian {
+  top: 780px;
+  right: 115px;
+  font-size: 12px;
+  width: 150px;
+}
+
+/* Imam Name at bottom */
+.imam-name-bottom {
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 22px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Imam signature in middle */
+.imam-signature {
+  top: 910px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  text-align: center;
 }
 
 .download-section {
@@ -215,8 +327,48 @@ body {
       </div>
       
       <div class="input-group">
+        <label for="groomDob">Groom's Date of Birth</label>
+        <input type="date" id="groomDob" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="groomAddress">Groom's Address</label>
+        <input type="text" id="groomAddress" placeholder="Enter groom's address" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="groomStatus">Groom's Status</label>
+        <select id="groomStatus" required>
+          <option value="">Select status</option>
+          <option value="unmarried">Unmarried</option>
+          <option value="divorced">Divorced</option>
+          <option value="widowed">Widowed</option>
+        </select>
+      </div>
+      
+      <div class="input-group">
         <label for="brideName">Bride's Full Name</label>
         <input type="text" id="brideName" placeholder="Enter bride's full name" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="brideDob">Bride's Date of Birth</label>
+        <input type="date" id="brideDob" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="brideAddress">Bride's Address</label>
+        <input type="text" id="brideAddress" placeholder="Enter bride's address" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="brideStatus">Bride's Status</label>
+        <select id="brideStatus" required>
+          <option value="">Select status</option>
+          <option value="unmarried">Unmarried</option>
+          <option value="divorced">Divorced</option>
+          <option value="widowed">Widowed</option>
+        </select>
       </div>
       
       <div class="input-group">
@@ -225,7 +377,42 @@ body {
       </div>
       
       <div class="input-group">
-        <label for="date">Ceremony Date</label>
+        <label for="witness1Name">First Witness Full Name</label>
+        <input type="text" id="witness1Name" placeholder="Enter first witness name" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="witness1Dob">First Witness Date of Birth</label>
+        <input type="date" id="witness1Dob" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="witness2Name">Second Witness Full Name</label>
+        <input type="text" id="witness2Name" placeholder="Enter second witness name" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="witness2Dob">Second Witness Date of Birth</label>
+        <input type="date" id="witness2Dob" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="ceremonyDay">Ceremony Day</label>
+        <input type="text" id="ceremonyDay" placeholder="e.g., 15th" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="ceremonyMonth">Ceremony Month (Hijri)</label>
+        <input type="text" id="ceremonyMonth" placeholder="e.g., Rajab" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="ceremonyYear">Ceremony Year (Hijri)</label>
+        <input type="text" id="ceremonyYear" placeholder="e.g., 1448" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="date">Ceremony Date (Gregorian)</label>
         <input type="date" id="date" required>
       </div>
       
@@ -240,13 +427,41 @@ body {
 </div>
 
 <div id="certificate" style="display:none;">
-  <div class="certificate-overlay">
-    <div class="certificate-text groom-name" id="groomNameOut"></div>
-    <div class="certificate-text bride-name" id="brideNameOut"></div>
-    <div class="certificate-text mahr-amount" id="mahrOut"></div>
-    <div class="certificate-text ceremony-date" id="dateOut"></div>
-    <div class="certificate-text imam-name" id="imamNameOut"></div>
-  </div>
+  <!-- Groom Information -->
+  <div class="certificate-text groom-name" id="groomNameOut"></div>
+  <div class="certificate-text groom-dob" id="groomDobOut"></div>
+  <div class="certificate-text groom-address" id="groomAddressOut"></div>
+  <div class="certificate-text groom-status" id="groomStatusOut"></div>
+  
+  <!-- Bride Information -->
+  <div class="certificate-text bride-name" id="brideNameOut"></div>
+  <div class="certificate-text bride-dob" id="brideDobOut"></div>
+  <div class="certificate-text bride-address" id="brideAddressOut"></div>
+  <div class="certificate-text bride-status" id="brideStatusOut"></div>
+  
+  <!-- Ceremony Date (top right) -->
+  <div class="certificate-text ceremony-date" id="dateOut"></div>
+  
+  <!-- Mahr Amount -->
+  <div class="certificate-text mahr-amount" id="mahrOut"></div>
+  
+  <!-- Witnesses -->
+  <div class="certificate-text witness1-name" id="witness1NameOut"></div>
+  <div class="certificate-text witness1-dob" id="witness1DobOut"></div>
+  <div class="certificate-text witness2-name" id="witness2NameOut"></div>
+  <div class="certificate-text witness2-dob" id="witness2DobOut"></div>
+  
+  <!-- Ceremony Details -->
+  <div class="certificate-text ceremony-day" id="ceremonyDayOut"></div>
+  <div class="certificate-text ceremony-month" id="ceremonyMonthOut"></div>
+  <div class="certificate-text ceremony-year" id="ceremonyYearOut"></div>
+  <div class="certificate-text ceremony-gregorian" id="ceremonyGregorianOut"></div>
+  
+  <!-- Imam Signature -->
+  <div class="certificate-text imam-signature" id="imamSignatureOut"></div>
+  
+  <!-- Imam Name at Bottom -->
+  <div class="certificate-text imam-name-bottom" id="imamNameBottomOut"></div>
 </div>
 
 <div id="downloadSection" class="download-section" style="display:none;">
@@ -258,33 +473,87 @@ body {
 
 <script>
 function generateCertificate() {
-  // Get values
-  const groom = document.getElementById("groomName").value.trim();
-  const bride = document.getElementById("brideName").value.trim();
+  // Get all form values
+  const groomName = document.getElementById("groomName").value.trim();
+  const groomDob = document.getElementById("groomDob").value;
+  const groomAddress = document.getElementById("groomAddress").value.trim();
+  const groomStatus = document.getElementById("groomStatus").value;
+  
+  const brideName = document.getElementById("brideName").value.trim();
+  const brideDob = document.getElementById("brideDob").value;
+  const brideAddress = document.getElementById("brideAddress").value.trim();
+  const brideStatus = document.getElementById("brideStatus").value;
+  
   const mahr = document.getElementById("mahr").value.trim();
+  
+  const witness1Name = document.getElementById("witness1Name").value.trim();
+  const witness1Dob = document.getElementById("witness1Dob").value;
+  const witness2Name = document.getElementById("witness2Name").value.trim();
+  const witness2Dob = document.getElementById("witness2Dob").value;
+  
+  const ceremonyDay = document.getElementById("ceremonyDay").value.trim();
+  const ceremonyMonth = document.getElementById("ceremonyMonth").value.trim();
+  const ceremonyYear = document.getElementById("ceremonyYear").value.trim();
   const date = document.getElementById("date").value;
-  const imam = document.getElementById("imamName").value.trim();
+  
+  const imamName = document.getElementById("imamName").value.trim();
 
   // Validate required fields
-  if (!groom || !bride || !mahr || !date || !imam) {
+  const requiredFields = [
+    groomName, groomDob, groomAddress, groomStatus,
+    brideName, brideDob, brideAddress, brideStatus,
+    mahr, witness1Name, witness1Dob, witness2Name, witness2Dob,
+    ceremonyDay, ceremonyMonth, ceremonyYear, date, imamName
+  ];
+  
+  if (requiredFields.some(field => !field)) {
     alert('Please fill in all required fields.');
     return;
   }
 
-  // Format date
+  // Format dates
   const dateObj = new Date(date);
   const formattedDate = dateObj.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
   });
+  
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
 
-  // Fill certificate
-  document.getElementById("groomNameOut").innerText = groom;
-  document.getElementById("brideNameOut").innerText = bride;
-  document.getElementById("mahrOut").innerText = mahr;
+  // Fill certificate with all data
+  document.getElementById("groomNameOut").innerText = groomName;
+  document.getElementById("groomDobOut").innerText = formatDate(groomDob);
+  document.getElementById("groomAddressOut").innerText = groomAddress;
+  document.getElementById("groomStatusOut").innerText = groomStatus;
+  
+  document.getElementById("brideNameOut").innerText = brideName;
+  document.getElementById("brideDobOut").innerText = formatDate(brideDob);
+  document.getElementById("brideAddressOut").innerText = brideAddress;
+  document.getElementById("brideStatusOut").innerText = brideStatus;
+  
   document.getElementById("dateOut").innerText = formattedDate;
-  document.getElementById("imamNameOut").innerText = imam;
+  document.getElementById("mahrOut").innerText = mahr;
+  
+  document.getElementById("witness1NameOut").innerText = witness1Name;
+  document.getElementById("witness1DobOut").innerText = formatDate(witness1Dob);
+  document.getElementById("witness2NameOut").innerText = witness2Name;
+  document.getElementById("witness2DobOut").innerText = formatDate(witness2Dob);
+  
+  document.getElementById("ceremonyDayOut").innerText = ceremonyDay;
+  document.getElementById("ceremonyMonthOut").innerText = ceremonyMonth;
+  document.getElementById("ceremonyYearOut").innerText = ceremonyYear;
+  document.getElementById("ceremonyGregorianOut").innerText = formattedDate;
+  
+  document.getElementById("imamSignatureOut").innerText = imamName;
+  document.getElementById("imamNameBottomOut").innerText = `Imam: ${imamName} - Date: ${formattedDate}`;
 
   // Show certificate and download section
   document.getElementById("certificate").style.display = "block";
@@ -322,11 +591,29 @@ function downloadPDF() {
 }
 
 function resetForm() {
-  // Clear form fields
+  // Clear all form fields
   document.getElementById("groomName").value = "";
+  document.getElementById("groomDob").value = "";
+  document.getElementById("groomAddress").value = "";
+  document.getElementById("groomStatus").value = "";
+  
   document.getElementById("brideName").value = "";
+  document.getElementById("brideDob").value = "";
+  document.getElementById("brideAddress").value = "";
+  document.getElementById("brideStatus").value = "";
+  
   document.getElementById("mahr").value = "";
+  
+  document.getElementById("witness1Name").value = "";
+  document.getElementById("witness1Dob").value = "";
+  document.getElementById("witness2Name").value = "";
+  document.getElementById("witness2Dob").value = "";
+  
+  document.getElementById("ceremonyDay").value = "";
+  document.getElementById("ceremonyMonth").value = "";
+  document.getElementById("ceremonyYear").value = "";
   document.getElementById("date").value = "";
+  
   document.getElementById("imamName").value = "";
   
   // Hide certificate and download section
