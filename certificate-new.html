@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marriage Certificate Generator</title>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
 body {
@@ -103,9 +102,7 @@ body {
 
 /* Certificate Styles */
 .certificate {
-  width: 8.5in;
-  min-height: auto;
-  max-height: 11in;
+  width: 750px;
   background: white;
   margin: 20px auto;
   padding: 25px 35px;
@@ -114,7 +111,6 @@ body {
   position: relative;
   display: none;
   font-size: 11px;
-  overflow: hidden;
 }
 
 /* Header Text */
@@ -226,8 +222,9 @@ body {
 }
 
 .mahr-section {
-  margin: 10px 0;
+  margin: 10px auto;
   font-size: 12px;
+  max-width: 70%;
 }
 
 .witness-section {
@@ -253,29 +250,28 @@ body {
 .ceremony-section {
   margin: 15px 0;
   font-size: 12px;
+  text-align: center;
 }
 
 .ceremony-line {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  flex-wrap: wrap;
+  display: inline-flex;
+  align-items: baseline;
+  margin-bottom: 5px;
+  font-size: 12px;
 }
 
 .ceremony-text {
-  margin: 0 5px;
+  margin: 0 3px;
+  white-space: nowrap;
 }
 
 .ceremony-blank {
   border-bottom: 1px solid #000;
-  height: 20px;
-  position: relative;
-  margin: 0 5px;
+  min-width: 60px;
+  text-align: center;
+  margin: 0 3px;
+  padding: 0 2px;
 }
-
-.ceremony-blank.short { width: 80px; }
-.ceremony-blank.medium { width: 100px; }
-.ceremony-blank.long { width: 150px; }
 
 .signature-section {
   margin-top: 20px;
@@ -296,6 +292,17 @@ body {
   border-bottom: 1px solid #000;
   height: 30px;
   margin-bottom: 5px;
+  position: relative;
+}
+
+.signature-name {
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 11px;
+  font-style: italic;
 }
 
 .signature-label {
@@ -345,8 +352,64 @@ body {
   
   .certificate {
     width: 100%;
-    height: auto;
-    padding: 30px;
+    padding: 20px;
+  }
+}
+
+/* Print styles */
+@media print {
+  /* Hide everything except the certificate */
+  body {
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 100vh !important;
+  }
+  .container, #downloadSection {
+    display: none !important;
+  }
+  .certificate {
+    display: block !important;
+    width: 7.5in !important;
+    margin: 0 auto !important;
+    padding: 0.2in 0.3in !important;
+    border: 3px solid #b89b5e !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    font-size: 10px !important;
+  }
+  /* Compress spacing for print */
+  .mosque-name { margin-bottom: 2px !important; font-size: 16px !important; }
+  .mosque-address { margin-bottom: 8px !important; }
+  .title-arabic { margin-bottom: 4px !important; font-size: 16px !important; }
+  .hadith-quote { margin-bottom: 6px !important; }
+  .certificate-title { margin-bottom: 8px !important; font-size: 22px !important; }
+  .praise-text { margin-bottom: 6px !important; font-size: 10px !important; }
+  .contract-text { margin-bottom: 6px !important; font-size: 10px !important; }
+  .person-section { margin-bottom: 8px !important; }
+  .person-header { margin-bottom: 4px !important; font-size: 14px !important; }
+  .field-row { margin-bottom: 4px !important; }
+  .mahr-section { margin: 6px 0 !important; }
+  .witness-section { margin: 6px 0 !important; }
+  .witness-header { margin-bottom: 4px !important; }
+  .ceremony-section { margin: 8px 0 !important; }
+  .signature-section { margin-top: 10px !important; }
+  .signature-row { margin-bottom: 8px !important; }
+  .signature-line { height: 25px !important; }
+  .imam-signature { margin: 8px auto !important; }
+  .imam-bottom { margin-top: 6px !important; }
+
+  /* Ensure colors print */
+  .mosque-name { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .certificate-title { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .certificate { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  @page {
+    size: letter;
+    margin: 0.25in;
   }
 }
 </style>
@@ -601,28 +664,23 @@ body {
   </div>
   
   <div class="ceremony-section">
-    <div style="font-weight: bold; margin-bottom: 10px;">The <em>Nikkah</em> (Muslim Marriage) ceremony was held on:</div>
+    <div style="font-weight: bold; margin-bottom: 8px; text-align: center;">The <em>Nikkah</em> (Muslim Marriage) ceremony was held on:</div>
     
     <div class="ceremony-line">
       <span class="ceremony-text">The</span>
-      <div class="ceremony-blank short">
-        <div class="field-value" id="ceremonyDayOut"></div>
-      </div>
+      <span class="ceremony-blank" id="ceremonyDayOut"></span>
       <span class="ceremony-text">day of</span>
-      <div class="ceremony-blank medium">
-        <div class="field-value" id="ceremonyMonthOut"></div>
-      </div>
-      <span class="ceremony-text">14</span>
-      <div class="ceremony-blank short">
-        <div class="field-value" id="ceremonyYearOut"></div>
-      </div>
-      <span class="ceremony-text">(Hijri) Coinciding with</span>
-      <div class="ceremony-blank long">
-        <div class="field-value" id="ceremonyDateOut"></div>
-      </div>
+      <span class="ceremony-blank" id="ceremonyMonthOut"></span>
+      <span class="ceremony-text">, 14</span>
+      <span class="ceremony-blank" id="ceremonyYearOut"></span>
+      <span class="ceremony-text">(Hijri)</span>
+    </div>
+    <div class="ceremony-line">
+      <span class="ceremony-text">Coinciding with</span>
+      <span class="ceremony-blank" id="ceremonyDateOut" style="min-width: 150px;"></span>
     </div>
     
-    <div style="font-size: 11px; margin-top: 10px;">
+    <div style="font-size: 11px; margin-top: 8px; text-align: center;">
       We, undersigned, put our signature to this contract, being of sound mind and without compulsion or duress.
     </div>
   </div>
@@ -630,30 +688,40 @@ body {
   <div class="signature-section">
     <div class="signature-row">
       <div class="signature-box">
-        <div class="signature-line"></div>
+        <div class="signature-line">
+          <div class="signature-name" id="groomSigOut"></div>
+        </div>
         <div class="signature-label">Groom's Signature</div>
       </div>
       
       <div class="signature-box">
-        <div class="signature-line"></div>
+        <div class="signature-line">
+          <div class="signature-name" id="brideSigOut"></div>
+        </div>
         <div class="signature-label">Bride's Signature</div>
       </div>
     </div>
     
     <div class="signature-row">
       <div class="signature-box">
-        <div class="signature-line"></div>
+        <div class="signature-line">
+          <div class="signature-name" id="witness1SigOut"></div>
+        </div>
         <div class="signature-label">First Witness Signature</div>
       </div>
       
       <div class="signature-box">
-        <div class="signature-line"></div>
+        <div class="signature-line">
+          <div class="signature-name" id="witness2SigOut"></div>
+        </div>
         <div class="signature-label">Second Witness Signature</div>
       </div>
     </div>
     
     <div class="imam-signature">
-      <div class="signature-line"></div>
+      <div class="signature-line">
+        <div class="signature-name" id="imamSigOut"></div>
+      </div>
       <div class="signature-label">Signature of Imam</div>
     </div>
   </div>
@@ -670,8 +738,9 @@ body {
 
 <div id="downloadSection" class="download-section">
   <h3>Your certificate is ready!</h3>
-  <p>You can now download your marriage certificate as a PDF.</p>
-  <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
+  <p>Print your certificate or save it as a PDF using your browser's print dialog.</p>
+  <button class="download-btn" onclick="printCertificate('signed')">Print / Save PDF (With Names)</button>
+  <button class="download-btn" onclick="printCertificate('blank')" style="background: #3498db;">Print / Save PDF (Blank for Signing)</button>
   <button class="download-btn" onclick="resetForm()" style="background: #e74c3c;">Create Another</button>
 </div>
 
@@ -752,6 +821,13 @@ function generateCertificate() {
   
   document.getElementById("imamBottomOut").innerText = imamName;
 
+  // Fill signature names
+  document.getElementById("groomSigOut").innerText = groomName;
+  document.getElementById("brideSigOut").innerText = brideName;
+  document.getElementById("witness1SigOut").innerText = witness1Name;
+  document.getElementById("witness2SigOut").innerText = witness2Name;
+  document.getElementById("imamSigOut").innerText = imamName;
+
   // Show certificate and download section
   document.getElementById("certificate").style.display = "block";
   document.getElementById("downloadSection").style.display = "block";
@@ -763,32 +839,21 @@ function generateCertificate() {
   });
 }
 
-function downloadPDF() {
-  const cert = document.getElementById("certificate");
-  const filename = `Marriage_Certificate_${new Date().getFullYear()}.pdf`;
-  
-  const options = {
-    margin: [0.2, 0.2, 0.2, 0.2],
-    filename: filename,
-    image: { type: 'jpeg', quality: 1.0 },
-    html2canvas: { 
-      scale: 2,
-      useCORS: true,
-      allowTaint: true,
-      letterRendering: true,
-      scrollY: 0,
-      windowWidth: cert.scrollWidth,
-      windowHeight: cert.scrollHeight
-    },
-    jsPDF: { 
-      unit: 'in', 
-      format: 'letter', 
-      orientation: 'portrait'
-    },
-    pagebreak: { mode: 'avoid-all' }
-  };
-  
-  html2pdf().set(options).from(cert).save();
+function printCertificate(mode) {
+  const sigNames = document.querySelectorAll('.signature-name');
+
+  // Hide or show signature names based on mode
+  if (mode === 'blank') {
+    sigNames.forEach(el => el.style.display = 'none');
+  } else {
+    sigNames.forEach(el => el.style.display = 'block');
+  }
+
+  // Use browser's native print (user can Print or Save as PDF)
+  window.print();
+
+  // Restore signature names after print dialog closes
+  sigNames.forEach(el => el.style.display = 'block');
 }
 
 function resetForm() {
