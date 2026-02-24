@@ -1,58 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Marriage Certificate Generator</title>
+
+  <!-- jsPDF Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <style>
     body {
-      font-family: Arial;
+      font-family: Arial, sans-serif;
       text-align: center;
-      padding: 20px;
+      background-color: #f4f4f4;
+      padding: 40px;
     }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
     input {
-      margin: 5px;
-      padding: 5px;
+      display: block;
+      margin: 10px auto;
+      padding: 8px;
       width: 300px;
+      font-size: 14px;
     }
+
     button {
-      padding: 10px 20px;
       margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 14px;
+      cursor: pointer;
     }
   </style>
 </head>
+
 <body>
 
-<h2>Marriage Certificate Form</h2>
+  <h2>Marriage Certificate Form</h2>
 
-<input id="groom" placeholder="Groom Full Name"><br>
-<input id="bride" placeholder="Bride Full Name"><br>
-<input id="mahr" placeholder="Amount of Mahr"><br>
-<input id="imam" placeholder="Imam Name"><br>
+  <input type="text" id="groom" placeholder="Groom Full Name">
+  <input type="text" id="bride" placeholder="Bride Full Name">
+  <input type="text" id="mahr" placeholder="Amount of Mahr">
+  <input type="text" id="imam" placeholder="Imam Name">
 
-<button onclick="generatePDF()">Generate Certificate</button>
+  <button id="generateBtn">Generate Certificate</button>
 
-<script>
-async function generatePDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
+  <script>
+    document.getElementById("generateBtn").addEventListener("click", generatePDF);
 
-  const img = new Image();
-  img.src = "certificate.png";
+    function generatePDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF("p", "mm", "a4");
 
-  img.onload = function() {
-    doc.addImage(img, "PNG", 0, 0, 210, 297);
+      const img = new Image();
+      img.src = "certificate.png.jpeg";  // MUST MATCH YOUR FILE NAME
 
-    doc.setFontSize(12);
+      img.onload = function () {
+        // Add background certificate image
+        doc.addImage(img, "JPEG", 0, 0, 210, 297);
 
-    doc.text(document.getElementById("groom").value, 60, 120);
-    doc.text(document.getElementById("bride").value, 60, 130);
-    doc.text(document.getElementById("mahr").value, 60, 160);
-    doc.text(document.getElementById("imam").value, 60, 250);
+        doc.setFontSize(14);
 
-    doc.save("Marriage_Certificate.pdf");
-  }
-}
-</script>
+        // Adjust these numbers later to align perfectly
+        doc.text(document.getElementById("groom").value, 80, 115);
+        doc.text(document.getElementById("bride").value, 80, 125);
+        doc.text(document.getElementById("mahr").value, 80, 160);
+        doc.text(document.getElementById("imam").value, 80, 250);
+
+        doc.save("Marriage_Certificate.pdf");
+      };
+
+      img.onerror = function () {
+        alert("Error: Certificate image not found. Check filename.");
+      };
+    }
+  </script>
 
 </body>
 </html>
