@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marriage Certificate Generator</title>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
 body {
@@ -101,229 +100,233 @@ body {
   box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-#certificate {
-  width: 8.5in;
-  height: 11in;
-  margin: 40px auto;
-  background-image: url('certificate.png.jpeg');
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+/* Certificate Styles */
+.certificate {
+  width: 750px;
+  background: white;
+  margin: 20px auto;
+  padding: 25px 35px;
+  box-sizing: border-box;
+  border: 3px solid #b89b5e;
   position: relative;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  background-color: white;
+  display: none;
+  font-size: 11px;
 }
 
-/* Text positioning based on your certificate layout */
-.certificate-text {
-  position: absolute;
-  color: #000;
+/* Header Text */
+.mosque-name {
+  text-align: center;
+  font-size: 18px;
+  color: #b89b5e;
+  margin-bottom: 3px;
   font-weight: bold;
-  font-family: "Times New Roman", serif;
 }
 
-/* Groom Information */
-.groom-name {
-  top: 412px;
-  left: 245px;
-  font-size: 10px;
-  width: 220px;
+.mosque-address {
   text-align: center;
-}
-
-.groom-dob {
-  top: 442px;
-  left: 245px;
-  font-size: 10px;
-  width: 220px;
-  text-align: center;
-}
-
-.groom-address {
-  top: 472px;
-  left: 245px;
-  font-size: 9px;
-  width: 220px;
-  text-align: center;
-}
-
-.groom-status {
-  top: 502px;
-  left: 255px;
-  font-size: 10px;
-  width: 200px;
-  text-align: center;
-}
-
-/* Bride Information */
-.bride-name {
-  top: 412px;
-  left: 525px;
-  font-size: 10px;
-  width: 190px;
-  text-align: center;
-}
-
-.bride-dob {
-  top: 442px;
-  left: 525px;
-  font-size: 10px;
-  width: 190px;
-  text-align: center;
-}
-
-.bride-address {
-  top: 472px;
-  left: 525px;
-  font-size: 9px;
-  width: 190px;
-  text-align: center;
-}
-
-.bride-status {
-  top: 502px;
-  left: 525px;
-  font-size: 10px;
-  width: 190px;
-  text-align: center;
-}
-
-/* Mahr Amount */
-.mahr-amount {
-  top: 563px;
-  left: 270px;
-  font-size: 10px;
-  width: 260px;
-  text-align: center;
-}
-
-/* Witnesses */
-.witness1-name {
-  top: 632px;
-  left: 245px;
-  font-size: 10px;
-  width: 220px;
-  text-align: center;
-}
-
-.witness1-dob {
-  top: 662px;
-  left: 245px;
-  font-size: 9px;
-  width: 220px;
-  text-align: center;
-}
-
-.witness2-name {
-  top: 632px;
-  left: 485px;
-  font-size: 10px;
-  width: 230px;
-  text-align: center;
-}
-
-.witness2-dob {
-  top: 662px;
-  left: 485px;
-  font-size: 9px;
-  width: 230px;
-  text-align: center;
-}
-
-/* Ceremony Details */
-.ceremony-day {
-  top: 747px;
-  left: 130px;
-  font-size: 10px;
-  width: 70px;
-  text-align: center;
-}
-
-.ceremony-month {
-  top: 747px;
-  left: 270px;
-  font-size: 10px;
-  width: 70px;
-  text-align: center;
-}
-
-.ceremony-year {
-  top: 747px;
-  left: 390px;
-  font-size: 10px;
-  width: 50px;
-  text-align: center;
-}
-
-.ceremony-gregorian {
-  top: 747px;
-  left: 555px;
-  font-size: 9px;
-  width: 215px;
-  text-align: center;
-}
-
-/* Signatures */
-.groom-signature {
-  top: 852px;
-  left: 145px;
-  font-size: 8px;
-  width: 200px;
-  text-align: center;
+  font-size: 12px;
   color: #666;
+  margin-bottom: 12px;
 }
 
-.bride-signature {
-  top: 852px;
-  left: 500px;
-  font-size: 8px;
-  width: 200px;
+.title-arabic {
   text-align: center;
-  color: #666;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 6px;
 }
 
-.witness1-signature {
-  top: 924px;
-  left: 125px;
-  font-size: 8px;
-  width: 200px;
+.hadith-quote {
   text-align: center;
+  font-size: 9px;
   color: #666;
+  font-style: italic;
+  margin-bottom: 10px;
 }
 
-.witness2-signature {
-  top: 924px;
-  left: 495px;
-  font-size: 8px;
-  width: 220px;
+.certificate-title {
   text-align: center;
-  color: #666;
+  font-size: 26px;
+  font-weight: bold;
+  color: #b89b5e;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+}
+
+.praise-text {
+  text-align: center;
+  font-size: 11px;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.contract-text {
+  text-align: center;
+  font-size: 11px;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+/* Form Fields */
+.person-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.person-column {
+  width: 45%;
+}
+
+.person-header {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.field-label {
+  width: 80px;
+  font-weight: bold;
+}
+
+.field-line {
+  flex: 1;
+  border-bottom: 1px solid #000;
+  height: 20px;
+  margin: 0 5px;
+  position: relative;
+}
+
+.field-value {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 11px;
+}
+
+.status-options {
+  font-size: 9px;
+  font-style: italic;
+  text-align: center;
+  margin-top: 2px;
+}
+
+.mahr-section {
+  margin: 10px auto;
+  font-size: 12px;
+  max-width: 70%;
+}
+
+.witness-section {
+  margin: 10px 0;
+}
+
+.witness-header {
+  font-weight: bold;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.witness-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.witness-column {
+  width: 45%;
+}
+
+.ceremony-section {
+  margin: 15px 0;
+  font-size: 12px;
+  text-align: center;
+}
+
+.ceremony-line {
+  display: inline-flex;
+  align-items: baseline;
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+
+.ceremony-text {
+  margin: 0 3px;
+  white-space: nowrap;
+}
+
+.ceremony-blank {
+  border-bottom: 1px solid #000;
+  min-width: 60px;
+  text-align: center;
+  margin: 0 3px;
+  padding: 0 2px;
+}
+
+.signature-section {
+  margin-top: 20px;
+}
+
+.signature-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.signature-box {
+  width: 40%;
+  text-align: center;
+}
+
+.signature-line {
+  border-bottom: 1px solid #000;
+  height: 30px;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.signature-name {
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 11px;
+  font-style: italic;
+}
+
+.signature-label {
+  font-size: 11px;
+  font-style: italic;
 }
 
 .imam-signature {
-  top: 987px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 8px;
-  width: 300px;
   text-align: center;
-  color: #666;
+  margin: 15px auto;
+  width: 60%;
 }
 
-/* Imam Name at bottom */
-.imam-name-bottom {
-  top: 1027px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 10px;
-  width: 500px;
+.imam-bottom {
   text-align: center;
+  margin-top: 10px;
+  font-size: 12px;
 }
 
 .download-section {
   text-align: center;
   padding: 30px;
   background: #f8f9fa;
+  display: none;
 }
 
 .download-btn {
@@ -347,14 +350,66 @@ body {
     grid-template-columns: 1fr;
   }
   
-  #certificate {
+  .certificate {
     width: 100%;
-    height: auto;
-    aspect-ratio: 8.5/11;
+    padding: 20px;
   }
-  
-  .header h1 {
-    font-size: 2rem;
+}
+
+/* Print styles */
+@media print {
+  /* Hide everything except the certificate */
+  body {
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 100vh !important;
+  }
+  .container, #downloadSection {
+    display: none !important;
+  }
+  .certificate {
+    display: block !important;
+    width: 7.5in !important;
+    margin: 0 auto !important;
+    padding: 0.2in 0.3in !important;
+    border: 3px solid #b89b5e !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    font-size: 10px !important;
+  }
+  /* Compress spacing for print */
+  .mosque-name { margin-bottom: 2px !important; font-size: 16px !important; }
+  .mosque-address { margin-bottom: 8px !important; }
+  .title-arabic { margin-bottom: 4px !important; font-size: 16px !important; }
+  .hadith-quote { margin-bottom: 6px !important; }
+  .certificate-title { margin-bottom: 8px !important; font-size: 22px !important; }
+  .praise-text { margin-bottom: 6px !important; font-size: 10px !important; }
+  .contract-text { margin-bottom: 6px !important; font-size: 10px !important; }
+  .person-section { margin-bottom: 8px !important; }
+  .person-header { margin-bottom: 4px !important; font-size: 14px !important; }
+  .field-row { margin-bottom: 4px !important; }
+  .mahr-section { margin: 6px 0 !important; }
+  .witness-section { margin: 6px 0 !important; }
+  .witness-header { margin-bottom: 4px !important; }
+  .ceremony-section { margin: 8px 0 !important; }
+  .signature-section { margin-top: 10px !important; }
+  .signature-row { margin-bottom: 8px !important; }
+  .signature-line { height: 25px !important; }
+  .imam-signature { margin: 8px auto !important; }
+  .imam-bottom { margin-top: 6px !important; }
+
+  /* Ensure colors print */
+  .mosque-name { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .certificate-title { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .certificate { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  @page {
+    size: letter;
+    margin: 0.25in;
   }
 }
 </style>
@@ -364,14 +419,14 @@ body {
 <div class="container">
   <div class="header">
     <h1>Marriage Certificate Generator</h1>
-    <p>Create beautiful Islamic marriage certificates instantly</p>
+    <p>Create beautiful Islamic marriage certificates</p>
   </div>
   
   <div class="form-section">
     <div class="form-grid">
       <div class="input-group">
         <label for="groomName">Groom's Full Name</label>
-        <input type="text" id="groomName" placeholder="Enter groom's full name" required>
+        <input type="text" id="groomName" required>
       </div>
       
       <div class="input-group">
@@ -381,7 +436,7 @@ body {
       
       <div class="input-group">
         <label for="groomAddress">Groom's Address</label>
-        <input type="text" id="groomAddress" placeholder="Enter groom's address" required>
+        <input type="text" id="groomAddress" required>
       </div>
       
       <div class="input-group">
@@ -396,7 +451,7 @@ body {
       
       <div class="input-group">
         <label for="brideName">Bride's Full Name</label>
-        <input type="text" id="brideName" placeholder="Enter bride's full name" required>
+        <input type="text" id="brideName" required>
       </div>
       
       <div class="input-group">
@@ -406,7 +461,7 @@ body {
       
       <div class="input-group">
         <label for="brideAddress">Bride's Address</label>
-        <input type="text" id="brideAddress" placeholder="Enter bride's address" required>
+        <input type="text" id="brideAddress" required>
       </div>
       
       <div class="input-group">
@@ -421,12 +476,12 @@ body {
       
       <div class="input-group">
         <label for="mahr">Mahr Amount</label>
-        <input type="text" id="mahr" placeholder="Enter mahr amount" required>
+        <input type="text" id="mahr" required>
       </div>
       
       <div class="input-group">
         <label for="witness1Name">First Witness Full Name</label>
-        <input type="text" id="witness1Name" placeholder="Enter first witness name" required>
+        <input type="text" id="witness1Name" required>
       </div>
       
       <div class="input-group">
@@ -436,7 +491,7 @@ body {
       
       <div class="input-group">
         <label for="witness2Name">Second Witness Full Name</label>
-        <input type="text" id="witness2Name" placeholder="Enter second witness name" required>
+        <input type="text" id="witness2Name" required>
       </div>
       
       <div class="input-group">
@@ -445,8 +500,8 @@ body {
       </div>
       
       <div class="input-group">
-        <label for="ceremonyDay">Ceremony Day</label>
-        <input type="text" id="ceremonyDay" placeholder="e.g., 15th" required>
+        <label for="ceremonyDay">Ceremony Day (e.g., 23rd)</label>
+        <input type="text" id="ceremonyDay" required>
       </div>
       
       <div class="input-group">
@@ -460,13 +515,13 @@ body {
       </div>
       
       <div class="input-group">
-        <label for="date">Ceremony Date (Gregorian)</label>
-        <input type="date" id="date" required>
+        <label for="ceremonyDate">Ceremony Date (Gregorian)</label>
+        <input type="date" id="ceremonyDate" required>
       </div>
       
       <div class="input-group">
         <label for="imamName">Imam's Full Name</label>
-        <input type="text" id="imamName" placeholder="Enter imam's full name" required>
+        <input type="text" id="imamName" required>
       </div>
     </div>
     
@@ -474,49 +529,218 @@ body {
   </div>
 </div>
 
-<div id="certificate" style="display:none;">
-  <!-- Groom Information -->
-  <div class="certificate-text groom-name" id="groomNameOut"></div>
-  <div class="certificate-text groom-dob" id="groomDobOut"></div>
-  <div class="certificate-text groom-address" id="groomAddressOut"></div>
-  <div class="certificate-text groom-status" id="groomStatusOut"></div>
+<div class="certificate" id="certificate">
+  <div class="mosque-name">Masjid Al-Rahman</div>
+  <div class="mosque-address">1110 36TH STREET RICHMOND, CA 94804</div>
   
-  <!-- Bride Information -->
-  <div class="certificate-text bride-name" id="brideNameOut"></div>
-  <div class="certificate-text bride-dob" id="brideDobOut"></div>
-  <div class="certificate-text bride-address" id="brideAddressOut"></div>
-  <div class="certificate-text bride-status" id="brideStatusOut"></div>
+  <div class="title-arabic">In the name of Allah, the Most Beneficent, the Most Merciful</div>
+  <div class="hadith-quote">"The stipulations that deserve the highest priority that you fulfill are those through which you make marital relations lawful" (Bukhari)</div>
   
-  <!-- Mahr Amount -->
-  <div class="certificate-text mahr-amount" id="mahrOut"></div>
+  <div class="certificate-title">MUSLIM MARRIAGE CERTIFICATE</div>
   
-  <!-- Witnesses -->
-  <div class="certificate-text witness1-name" id="witness1NameOut"></div>
-  <div class="certificate-text witness1-dob" id="witness1DobOut"></div>
-  <div class="certificate-text witness2-name" id="witness2NameOut"></div>
-  <div class="certificate-text witness2-dob" id="witness2DobOut"></div>
+  <div class="praise-text">
+    Praise be to Allah, the Lord of the Worlds and salutations be upon His messenger Muhammad ﷺ, his family and his Companions.
+  </div>
   
-  <!-- Ceremony Details -->
-  <div class="certificate-text ceremony-day" id="ceremonyDayOut"></div>
-  <div class="certificate-text ceremony-month" id="ceremonyMonthOut"></div>
-  <div class="certificate-text ceremony-year" id="ceremonyYearOut"></div>
-  <div class="certificate-text ceremony-gregorian" id="ceremonyGregorianOut"></div>
+  <div class="contract-text">
+    With help and success granted by Allah, after confirming that neither contracting party has no legal or other impediments and with <em>jab</em> (proposal) and <em>qabul</em> (acceptance):
+  </div>
   
-  <!-- Signatures -->
-  <div class="certificate-text groom-signature" id="groomSignatureOut">[Signature Line]</div>
-  <div class="certificate-text bride-signature" id="brideSignatureOut">[Signature Line]</div>
-  <div class="certificate-text witness1-signature" id="witness1SignatureOut">[Signature Line]</div>
-  <div class="certificate-text witness2-signature" id="witness2SignatureOut">[Signature Line]</div>
-  <div class="certificate-text imam-signature" id="imamSignatureOut">[Signature Line]</div>
+  <div class="contract-text">
+    The <em>Nikkah</em> (Muslim marriage) contract has been concluded between the bride and groom, as per terms and conditions
+  </div>
   
-  <!-- Imam Name at Bottom -->
-  <div class="certificate-text imam-name-bottom" id="imamNameBottomOut"></div>
+  <div class="person-section">
+    <div class="person-column">
+      <div class="person-header">GROOM</div>
+      
+      <div class="field-row">
+        <div class="field-label">Full name:</div>
+        <div class="field-line">
+          <div class="field-value" id="groomNameOut"></div>
+        </div>
+      </div>
+      
+      <div class="field-row">
+        <div class="field-label">Date of Birth:</div>
+        <div class="field-line">
+          <div class="field-value" id="groomDobOut"></div>
+        </div>
+      </div>
+      
+      <div class="field-row">
+        <div class="field-label">Address:</div>
+        <div class="field-line">
+          <div class="field-value" id="groomAddressOut"></div>
+        </div>
+      </div>
+      
+      <div class="field-row">
+        <div class="field-label">Status:</div>
+        <div class="field-line">
+          <div class="field-value" id="groomStatusOut"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="person-column">
+      <div class="person-header">BRIDE</div>
+      
+      <div class="field-row">
+        <div class="field-label">Full name:</div>
+        <div class="field-line">
+          <div class="field-value" id="brideNameOut"></div>
+        </div>
+      </div>
+      
+      <div class="field-row">
+        <div class="field-label">Date of Birth:</div>
+        <div class="field-line">
+          <div class="field-value" id="brideDobOut"></div>
+        </div>
+      </div>
+      
+      <div class="field-row">
+        <div class="field-label">Address:</div>
+        <div class="field-line">
+          <div class="field-value" id="brideAddressOut"></div>
+        </div>
+      </div>
+      
+      <div class="field-row">
+        <div class="field-label">Status:</div>
+        <div class="field-line">
+          <div class="field-value" id="brideStatusOut"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="mahr-section">
+    <div class="field-row">
+      <div class="field-label">Amount of <em>mahr</em>:</div>
+      <div class="field-line">
+        <div class="field-value" id="mahrOut"></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="witness-section">
+    <div class="witness-header">In the presence of two witnesses</div>
+    
+    <div class="witness-row">
+      <div class="witness-column">
+        <div class="field-row">
+          <div class="field-label">Full name:</div>
+          <div class="field-line">
+            <div class="field-value" id="witness1NameOut"></div>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-label">Date of Birth:</div>
+          <div class="field-line">
+            <div class="field-value" id="witness1DobOut"></div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 8px; font-weight: bold;" id="witness1Label">Witness 1</div>
+      </div>
+      
+      <div class="witness-column">
+        <div class="field-row">
+          <div class="field-label">Full name:</div>
+          <div class="field-line">
+            <div class="field-value" id="witness2NameOut"></div>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-label">Date of Birth:</div>
+          <div class="field-line">
+            <div class="field-value" id="witness2DobOut"></div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 8px; font-weight: bold;" id="witness2Label">Witness 2</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="ceremony-section">
+    <div style="font-weight: bold; margin-bottom: 8px; text-align: center;">The <em>Nikkah</em> (Muslim Marriage) ceremony was held on:</div>
+    
+    <div class="ceremony-line">
+      <span class="ceremony-text">The</span>
+      <span class="ceremony-blank" id="ceremonyDayOut"></span>
+      <span class="ceremony-text">day of</span>
+      <span class="ceremony-blank" id="ceremonyMonthOut"></span>
+      <span class="ceremony-text">, 14</span>
+      <span class="ceremony-blank" id="ceremonyYearOut"></span>
+      <span class="ceremony-text">(Hijri)</span>
+    </div>
+    <div class="ceremony-line">
+      <span class="ceremony-text">Coinciding with</span>
+      <span class="ceremony-blank" id="ceremonyDateOut" style="min-width: 150px;"></span>
+    </div>
+    
+    <div style="font-size: 11px; margin-top: 8px; text-align: center;">
+      We, undersigned, put our signature to this contract, being of sound mind and without compulsion or duress.
+    </div>
+  </div>
+  
+  <div class="signature-section">
+    <div class="signature-row">
+      <div class="signature-box">
+        <div class="signature-line">
+          <div class="signature-name" id="groomSigOut"></div>
+        </div>
+        <div class="signature-label">Groom's Signature</div>
+      </div>
+      
+      <div class="signature-box">
+        <div class="signature-line">
+          <div class="signature-name" id="brideSigOut"></div>
+        </div>
+        <div class="signature-label">Bride's Signature</div>
+      </div>
+    </div>
+    
+    <div class="signature-row">
+      <div class="signature-box">
+        <div class="signature-line">
+          <div class="signature-name" id="witness1SigOut"></div>
+        </div>
+        <div class="signature-label">First Witness Signature</div>
+      </div>
+      
+      <div class="signature-box">
+        <div class="signature-line">
+          <div class="signature-name" id="witness2SigOut"></div>
+        </div>
+        <div class="signature-label">Second Witness Signature</div>
+      </div>
+    </div>
+    
+    <div class="imam-signature">
+      <div class="signature-line">
+        <div class="signature-name" id="imamSigOut"></div>
+      </div>
+      <div class="signature-label">Signature of Imam</div>
+    </div>
+  </div>
+  
+  <div class="imam-bottom">
+    <div class="field-row">
+      <div class="field-label">Imam's Full Name:</div>
+      <div class="field-line">
+        <div class="field-value" id="imamBottomOut"></div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div id="downloadSection" class="download-section" style="display:none;">
+<div id="downloadSection" class="download-section">
   <h3>Your certificate is ready!</h3>
-  <p>You can now download your marriage certificate as a PDF.</p>
-  <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
+  <p>Print your certificate or save it as a PDF using your browser's print dialog.</p>
+  <button class="download-btn" onclick="printCertificate('signed')">Print / Save PDF (With Names)</button>
+  <button class="download-btn" onclick="printCertificate('blank')" style="background: #3498db;">Print / Save PDF (Blank for Signing)</button>
   <button class="download-btn" onclick="resetForm()" style="background: #e74c3c;">Create Another</button>
 </div>
 
@@ -543,7 +767,7 @@ function generateCertificate() {
   const ceremonyDay = document.getElementById("ceremonyDay").value.trim();
   const ceremonyMonth = document.getElementById("ceremonyMonth").value.trim();
   const ceremonyYear = document.getElementById("ceremonyYear").value.trim();
-  const date = document.getElementById("date").value;
+  const ceremonyDate = document.getElementById("ceremonyDate").value;
   
   const imamName = document.getElementById("imamName").value.trim();
 
@@ -552,7 +776,7 @@ function generateCertificate() {
     groomName, groomDob, groomAddress, groomStatus,
     brideName, brideDob, brideAddress, brideStatus,
     mahr, witness1Name, witness1Dob, witness2Name, witness2Dob,
-    ceremonyDay, ceremonyMonth, ceremonyYear, date, imamName
+    ceremonyDay, ceremonyMonth, ceremonyYear, ceremonyDate, imamName
   ];
   
   if (requiredFields.some(field => !field)) {
@@ -561,13 +785,6 @@ function generateCertificate() {
   }
 
   // Format dates
-  const dateObj = new Date(date);
-  const formattedDate = dateObj.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-  
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
@@ -592,16 +809,24 @@ function generateCertificate() {
   
   document.getElementById("witness1NameOut").innerText = witness1Name;
   document.getElementById("witness1DobOut").innerText = formatDate(witness1Dob);
+  document.getElementById("witness1Label").innerText = witness1Name;
   document.getElementById("witness2NameOut").innerText = witness2Name;
   document.getElementById("witness2DobOut").innerText = formatDate(witness2Dob);
+  document.getElementById("witness2Label").innerText = witness2Name;
   
   document.getElementById("ceremonyDayOut").innerText = ceremonyDay;
   document.getElementById("ceremonyMonthOut").innerText = ceremonyMonth;
   document.getElementById("ceremonyYearOut").innerText = ceremonyYear;
-  document.getElementById("ceremonyGregorianOut").innerText = formattedDate;
+  document.getElementById("ceremonyDateOut").innerText = formatDate(ceremonyDate);
   
-  document.getElementById("imamSignatureOut").innerText = imamName;
-  document.getElementById("imamNameBottomOut").innerText = `Imam: ${imamName} - Date: ${formattedDate}`;
+  document.getElementById("imamBottomOut").innerText = imamName;
+
+  // Fill signature names
+  document.getElementById("groomSigOut").innerText = groomName;
+  document.getElementById("brideSigOut").innerText = brideName;
+  document.getElementById("witness1SigOut").innerText = witness1Name;
+  document.getElementById("witness2SigOut").innerText = witness2Name;
+  document.getElementById("imamSigOut").innerText = imamName;
 
   // Show certificate and download section
   document.getElementById("certificate").style.display = "block";
@@ -614,55 +839,27 @@ function generateCertificate() {
   });
 }
 
-function downloadPDF() {
-  const cert = document.getElementById("certificate");
-  const filename = `Marriage_Certificate_${new Date().getFullYear()}.pdf`;
-  
-  const options = {
-    margin: 0,
-    filename: filename,
-    image: { type: 'jpeg', quality: 1.0 },
-    html2canvas: { 
-      scale: 2,
-      useCORS: true,
-      allowTaint: true,
-      letterRendering: true
-    },
-    jsPDF: { 
-      unit: 'in', 
-      format: 'letter', 
-      orientation: 'portrait'
-    }
-  };
-  
-  html2pdf().set(options).from(cert).save();
+function printCertificate(mode) {
+  const sigNames = document.querySelectorAll('.signature-name');
+
+  // Hide or show signature names based on mode
+  if (mode === 'blank') {
+    sigNames.forEach(el => el.style.display = 'none');
+  } else {
+    sigNames.forEach(el => el.style.display = 'block');
+  }
+
+  // Use browser's native print (user can Print or Save as PDF)
+  window.print();
+
+  // Restore signature names after print dialog closes
+  sigNames.forEach(el => el.style.display = 'block');
 }
 
 function resetForm() {
   // Clear all form fields
-  document.getElementById("groomName").value = "";
-  document.getElementById("groomDob").value = "";
-  document.getElementById("groomAddress").value = "";
-  document.getElementById("groomStatus").value = "";
-  
-  document.getElementById("brideName").value = "";
-  document.getElementById("brideDob").value = "";
-  document.getElementById("brideAddress").value = "";
-  document.getElementById("brideStatus").value = "";
-  
-  document.getElementById("mahr").value = "";
-  
-  document.getElementById("witness1Name").value = "";
-  document.getElementById("witness1Dob").value = "";
-  document.getElementById("witness2Name").value = "";
-  document.getElementById("witness2Dob").value = "";
-  
-  document.getElementById("ceremonyDay").value = "";
-  document.getElementById("ceremonyMonth").value = "";
-  document.getElementById("ceremonyYear").value = "";
-  document.getElementById("date").value = "";
-  
-  document.getElementById("imamName").value = "";
+  const inputs = document.querySelectorAll('input, select');
+  inputs.forEach(input => input.value = '');
   
   // Hide certificate and download section
   document.getElementById("certificate").style.display = "none";
@@ -672,9 +869,9 @@ function resetForm() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Add form validation on input
+// Add form validation
 document.addEventListener('DOMContentLoaded', function() {
-  const inputs = document.querySelectorAll('input[required]');
+  const inputs = document.querySelectorAll('input[required], select[required]');
   inputs.forEach(input => {
     input.addEventListener('invalid', function(e) {
       e.target.setCustomValidity('This field is required.');
