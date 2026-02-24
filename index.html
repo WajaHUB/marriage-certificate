@@ -1,82 +1,168 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Marriage Certificate Generator</title>
+<meta charset="UTF-8">
+<title>Marriage Certificate Generator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-  <!-- jsPDF Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #f4f4f4;
+  padding: 30px;
+}
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #f4f4f4;
-      padding: 40px;
-    }
+h2 {
+  margin-bottom: 20px;
+}
 
-    h2 {
-      margin-bottom: 20px;
-    }
+.section {
+  margin-bottom: 25px;
+}
 
-    input {
-      display: block;
-      margin: 10px auto;
-      padding: 8px;
-      width: 300px;
-      font-size: 14px;
-    }
+input, select {
+  display: block;
+  margin: 8px auto;
+  padding: 8px;
+  width: 320px;
+}
 
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-  </style>
+button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  cursor: pointer;
+}
+</style>
 </head>
 
 <body>
 
-  <h2>Marriage Certificate Form</h2>
+<h2>Marriage Certificate Form</h2>
 
-  <input type="text" id="groom" placeholder="Groom Full Name">
-  <input type="text" id="bride" placeholder="Bride Full Name">
-  <input type="text" id="mahr" placeholder="Amount of Mahr">
-  <input type="text" id="imam" placeholder="Imam Name">
+<div class="section">
+<h3>Groom</h3>
+<input id="groomName" placeholder="Full Name">
+<input id="groomDOB" placeholder="Date of Birth">
+<input id="groomAddress" placeholder="Address">
+<select id="groomStatus">
+<option>unmarried</option>
+<option>divorced</option>
+<option>widowed</option>
+</select>
+</div>
 
-  <button id="generateBtn">Generate Certificate</button>
+<div class="section">
+<h3>Bride</h3>
+<input id="brideName" placeholder="Full Name">
+<input id="brideDOB" placeholder="Date of Birth">
+<input id="brideAddress" placeholder="Address">
+<select id="brideStatus">
+<option>unmarried</option>
+<option>divorced</option>
+<option>widowed</option>
+</select>
+</div>
 
-  <script>
-    document.getElementById("generateBtn").addEventListener("click", generatePDF);
+<div class="section">
+<h3>Mahr</h3>
+<input id="mahr" type="number" placeholder="Amount of Mahr">
+</div>
 
-    function generatePDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF("p", "mm", "a4");
+<div class="section">
+<h3>Witness 1</h3>
+<input id="w1Name" placeholder="Full Name">
+<input id="w1DOB" placeholder="Date of Birth">
 
-      const img = new Image();
-      img.src = "certificate.png.jpeg";  // MUST MATCH YOUR FILE NAME
+<h3>Witness 2</h3>
+<input id="w2Name" placeholder="Full Name">
+<input id="w2DOB" placeholder="Date of Birth">
+</div>
 
-      img.onload = function () {
-        // Add background certificate image
-        doc.addImage(img, "JPEG", 0, 0, 210, 297);
+<div class="section">
+<h3>Ceremony Date</h3>
+<input id="hijriDay" placeholder="Day">
+<input id="hijriMonth" placeholder="Month">
+<input id="hijriYear" placeholder="14__ (Hijri Year)">
+<input id="gregorianDate" placeholder="Coinciding Gregorian Date">
+</div>
 
-        doc.setFontSize(14);
+<div class="section">
+<h3>Signatures</h3>
+<input id="groomSig" placeholder="Groom Signature Name">
+<input id="brideSig" placeholder="Bride Signature Name">
+<input id="w1Sig" placeholder="First Witness Signature">
+<input id="w2Sig" placeholder="Second Witness Signature">
+<input id="imamSig" placeholder="Imam Signature">
+</div>
 
-        // Adjust these numbers later to align perfectly
-        doc.text(document.getElementById("groom").value, 80, 115);
-        doc.text(document.getElementById("bride").value, 80, 125);
-        doc.text(document.getElementById("mahr").value, 80, 160);
-        doc.text(document.getElementById("imam").value, 80, 250);
+<div class="section">
+<h3>Imam Info</h3>
+<input id="imamName" placeholder="Imam Full Name">
+<input id="certificateDate" placeholder="Certificate Date">
+</div>
 
-        doc.save("Marriage_Certificate.pdf");
-      };
+<button onclick="generatePDF()">Generate Certificate</button>
 
-      img.onerror = function () {
-        alert("Error: Certificate image not found. Check filename.");
-      };
-    }
-  </script>
+<script>
+function generatePDF() {
+
+const { jsPDF } = window.jspdf;
+const doc = new jsPDF("p","mm","a4");
+
+const img = new Image();
+img.src = "certificate.png.jpeg";
+
+img.onload = function() {
+
+doc.addImage(img,"JPEG",0,0,210,297);
+doc.setFontSize(10);
+
+// ---- GROOM ----
+doc.text(groomName.value, 60, 112);
+doc.text(groomDOB.value, 60, 120);
+doc.text(groomAddress.value, 60, 128);
+doc.text(groomStatus.value, 60, 136);
+
+// ---- BRIDE ----
+doc.text(brideName.value, 140, 112);
+doc.text(brideDOB.value, 140, 120);
+doc.text(brideAddress.value, 140, 128);
+doc.text(brideStatus.value, 140, 136);
+
+// ---- MAHR ----
+doc.text(mahr.value, 75, 150);
+
+// ---- WITNESSES ----
+doc.text(w1Name.value, 60, 170);
+doc.text(w1DOB.value, 60, 178);
+doc.text(w2Name.value, 140, 170);
+doc.text(w2DOB.value, 140, 178);
+
+// ---- DATE ----
+doc.text(hijriDay.value + " day of " + hijriMonth.value + " 14" + hijriYear.value, 50, 190);
+doc.text(gregorianDate.value, 130, 190);
+
+// ---- SIGNATURES ----
+doc.text(groomSig.value, 60, 215);
+doc.text(brideSig.value, 140, 215);
+doc.text(w1Sig.value, 60, 230);
+doc.text(w2Sig.value, 140, 230);
+doc.text(imamSig.value, 105, 245);
+
+// ---- IMAM INFO ----
+doc.text(imamName.value, 60, 260);
+doc.text(certificateDate.value, 140, 260);
+
+doc.save("Marriage_Certificate.pdf");
+};
+
+img.onerror = function(){
+alert("Certificate image not found.");
+};
+
+}
+</script>
 
 </body>
 </html>
