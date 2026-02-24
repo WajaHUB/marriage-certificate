@@ -4,36 +4,70 @@
 <meta charset="UTF-8">
 <title>Marriage Certificate Generator</title>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
+  font-family: "Times New Roman", serif;
   background: #f4f4f4;
-  padding: 30px;
+  text-align: center;
+  padding: 20px;
 }
 
-h2 {
+input {
+  display: block;
+  margin: 8px auto;
+  padding: 8px;
+  width: 300px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#certificate {
+  width: 800px;
+  margin: 40px auto;
+  padding: 60px;
+  background: white;
+  border: 4px solid #b89b5e;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
   margin-bottom: 20px;
 }
 
 .section {
-  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
 }
 
-input, select {
-  display: block;
-  margin: 8px auto;
-  padding: 8px;
-  width: 320px;
+.column {
+  width: 45%;
+  text-align: left;
 }
 
-button {
-  margin-top: 20px;
-  padding: 12px 25px;
-  cursor: pointer;
-  font-size: 16px;
+.line {
+  margin-bottom: 12px;
+}
+
+.signature-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60px;
+}
+
+.signature {
+  width: 40%;
+  text-align: center;
+  border-top: 1px solid black;
+  padding-top: 8px;
 }
 </style>
 </head>
@@ -42,161 +76,77 @@ button {
 
 <h2>Marriage Certificate Form</h2>
 
-<div class="section">
-<h3>Groom</h3>
-<input id="groomName" placeholder="Full Name">
-<input id="groomDOB" placeholder="Date of Birth">
-<input id="groomAddress" placeholder="Address">
-<select id="groomStatus">
-<option>unmarried</option>
-<option>divorced</option>
-<option>widowed</option>
-</select>
-</div>
-
-<div class="section">
-<h3>Bride</h3>
-<input id="brideName" placeholder="Full Name">
-<input id="brideDOB" placeholder="Date of Birth">
-<input id="brideAddress" placeholder="Address">
-<select id="brideStatus">
-<option>unmarried</option>
-<option>divorced</option>
-<option>widowed</option>
-</select>
-</div>
-
-<div class="section">
-<h3>Mahr</h3>
-<input id="mahr" type="number" placeholder="Amount of Mahr">
-</div>
-
-<div class="section">
-<h3>Witness 1</h3>
-<input id="w1Name" placeholder="Full Name">
-<input id="w1DOB" placeholder="Date of Birth">
-
-<h3>Witness 2</h3>
-<input id="w2Name" placeholder="Full Name">
-<input id="w2DOB" placeholder="Date of Birth">
-</div>
-
-<div class="section">
-<h3>Ceremony Date</h3>
-<input id="hijriDay" placeholder="Hijri Day">
-<input id="hijriMonth" placeholder="Hijri Month">
-<input id="hijriYear" placeholder="Hijri Year (14__)">
-<input id="gregorianDate" placeholder="Gregorian Date">
-</div>
-
-<div class="section">
-<h3>Signatures</h3>
-<input id="groomSig" placeholder="Groom Signature Name">
-<input id="brideSig" placeholder="Bride Signature Name">
-<input id="w1Sig" placeholder="First Witness Signature">
-<input id="w2Sig" placeholder="Second Witness Signature">
-<input id="imamSig" placeholder="Imam Signature">
-</div>
-
-<div class="section">
-<h3>Imam Info</h3>
+<input id="groomName" placeholder="Groom Full Name">
+<input id="brideName" placeholder="Bride Full Name">
+<input id="mahr" placeholder="Mahr Amount">
+<input id="date" placeholder="Ceremony Date">
 <input id="imamName" placeholder="Imam Full Name">
-<input id="certificateDate" placeholder="Certificate Date">
-</div>
 
-<button onclick="generatePDF()">Generate Certificate</button>
+<button onclick="generateCertificate()">Generate Certificate</button>
+
+<div id="certificate" style="display:none;">
+  <div class="title">MUSLIM MARRIAGE CERTIFICATE</div>
+
+  <p>
+    This certifies that <b id="groomOutput"></b> and 
+    <b id="brideOutput"></b> were united in marriage
+    according to Islamic law.
+  </p>
+
+  <div class="section">
+    <div class="column">
+      <div class="line"><b>Groom:</b> <span id="groomNameOut"></span></div>
+      <div class="line"><b>Mahr:</b> <span id="mahrOut"></span></div>
+    </div>
+
+    <div class="column">
+      <div class="line"><b>Bride:</b> <span id="brideNameOut"></span></div>
+      <div class="line"><b>Date:</b> <span id="dateOut"></span></div>
+    </div>
+  </div>
+
+  <div class="signature-section">
+    <div class="signature" id="groomSig">Groom Signature</div>
+    <div class="signature" id="brideSig">Bride Signature</div>
+  </div>
+
+  <div class="signature-section">
+    <div class="signature" id="imamOut">Imam Signature</div>
+  </div>
+
+  <p style="margin-top:50px;">
+    Imam: <b id="imamNameOut"></b>
+  </p>
+</div>
 
 <script>
-function generatePDF() {
+function generateCertificate() {
 
-const { jsPDF } = window.jspdf;
-const doc = new jsPDF("p","mm","a4");
+  // Get values
+  const groom = document.getElementById("groomName").value;
+  const bride = document.getElementById("brideName").value;
+  const mahr = document.getElementById("mahr").value;
+  const date = document.getElementById("date").value;
+  const imam = document.getElementById("imamName").value;
 
-// Get all values properly
-const groomName = document.getElementById("groomName").value;
-const groomDOB = document.getElementById("groomDOB").value;
-const groomAddress = document.getElementById("groomAddress").value;
-const groomStatus = document.getElementById("groomStatus").value;
+  // Fill certificate
+  document.getElementById("groomOutput").innerText = groom;
+  document.getElementById("brideOutput").innerText = bride;
 
-const brideName = document.getElementById("brideName").value;
-const brideDOB = document.getElementById("brideDOB").value;
-const brideAddress = document.getElementById("brideAddress").value;
-const brideStatus = document.getElementById("brideStatus").value;
+  document.getElementById("groomNameOut").innerText = groom;
+  document.getElementById("brideNameOut").innerText = bride;
+  document.getElementById("mahrOut").innerText = mahr;
+  document.getElementById("dateOut").innerText = date;
+  document.getElementById("imamNameOut").innerText = imam;
 
-const mahr = document.getElementById("mahr").value;
+  document.getElementById("imamOut").innerText = imam;
 
-const w1Name = document.getElementById("w1Name").value;
-const w1DOB = document.getElementById("w1DOB").value;
-const w2Name = document.getElementById("w2Name").value;
-const w2DOB = document.getElementById("w2DOB").value;
+  // Show certificate
+  const cert = document.getElementById("certificate");
+  cert.style.display = "block";
 
-const hijriDay = document.getElementById("hijriDay").value;
-const hijriMonth = document.getElementById("hijriMonth").value;
-const hijriYear = document.getElementById("hijriYear").value;
-const gregorianDate = document.getElementById("gregorianDate").value;
-
-const groomSig = document.getElementById("groomSig").value;
-const brideSig = document.getElementById("brideSig").value;
-const w1Sig = document.getElementById("w1Sig").value;
-const w2Sig = document.getElementById("w2Sig").value;
-const imamSig = document.getElementById("imamSig").value;
-
-const imamName = document.getElementById("imamName").value;
-const certificateDate = document.getElementById("certificateDate").value;
-
-// Load certificate image
-const img = new Image();
-img.src = "certificate.png.jpeg";
-
-img.onload = function() {
-
-doc.addImage(img,"JPEG",0,0,210,297);
-doc.setFont("times","normal");
-doc.setFontSize(11);
-
-// ---- GROOM ----
-doc.text(groomName, 55, 115, { maxWidth: 60 });
-doc.text(groomDOB, 55, 123);
-doc.text(groomAddress, 55, 131, { maxWidth: 60 });
-doc.text(groomStatus, 55, 139);
-
-// ---- BRIDE ----
-doc.text(brideName, 135, 115, { maxWidth: 60 });
-doc.text(brideDOB, 135, 123);
-doc.text(brideAddress, 135, 131, { maxWidth: 60 });
-doc.text(brideStatus, 135, 139);
-
-// ---- MAHR ----
-doc.text(mahr.toString(), 80, 152);
-
-// ---- WITNESSES ----
-doc.text(w1Name, 55, 172);
-doc.text(w1DOB, 55, 180);
-doc.text(w2Name, 135, 172);
-doc.text(w2DOB, 135, 180);
-
-// ---- DATE ----
-doc.text(`${hijriDay} ${hijriMonth} ${hijriYear}`, 65, 192);
-doc.text(gregorianDate, 145, 192);
-
-// ---- SIGNATURES ----
-doc.text(groomSig, 55, 218);
-doc.text(brideSig, 135, 218);
-doc.text(w1Sig, 55, 233);
-doc.text(w2Sig, 135, 233);
-doc.text(imamSig, 105, 248, { align: "center" });
-
-// ---- IMAM INFO ----
-doc.text(imamName, 55, 263);
-doc.text(certificateDate, 145, 263);
-
-doc.save("Marriage_Certificate.pdf");
-};
-
-img.onerror = function(){
-alert("Certificate image not found. Make sure certificate.png.jpeg is in the same folder.");
-};
-
+  // Convert to PDF
+  html2pdf().from(cert).save("Marriage_Certificate.pdf");
 }
 </script>
 
