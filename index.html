@@ -383,28 +383,27 @@ body {
     font-size: 12px !important;
   }
   /* Scale up for print */
-  .mosque-name { margin-bottom: 5px !important; font-size: 20px !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .mosque-address { margin-bottom: 12px !important; font-size: 12px !important; }
-  .title-arabic { margin-bottom: 6px !important; font-size: 18px !important; }
-  .hadith-quote { margin-bottom: 10px !important; font-size: 10px !important; }
-  .certificate-title { margin-bottom: 14px !important; font-size: 28px !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .praise-text { margin-bottom: 10px !important; font-size: 12px !important; }
-  .contract-text { margin-bottom: 10px !important; font-size: 12px !important; }
-  .person-section { margin-bottom: 12px !important; }
-  .person-header { margin-bottom: 8px !important; font-size: 17px !important; }
-  .field-row { margin-bottom: 8px !important; font-size: 13px !important; }
+  .mosque-name { margin-bottom: 4px !important; font-size: 20px !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .mosque-address { margin-bottom: 10px !important; font-size: 12px !important; }
+  .title-arabic { margin-bottom: 5px !important; font-size: 18px !important; }
+  .hadith-quote { margin-bottom: 8px !important; font-size: 10px !important; }
+  .certificate-title { margin-bottom: 10px !important; font-size: 26px !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .praise-text { margin-bottom: 8px !important; font-size: 12px !important; }
+  .contract-text { margin-bottom: 8px !important; font-size: 12px !important; }
+  .person-section { margin-bottom: 10px !important; }
+  .person-header { margin-bottom: 6px !important; font-size: 16px !important; }
+  .field-row { margin-bottom: 6px !important; font-size: 13px !important; }
   .field-value { font-size: 12px !important; }
-  .mahr-section { margin: 10px auto !important; }
-  .witness-section { margin: 10px 0 !important; }
-  .witness-header { margin-bottom: 8px !important; font-size: 14px !important; }
-  .ceremony-section { margin: 12px 0 !important; font-size: 13px !important; }
-  .signature-section { margin-top: 18px !important; }
-  .signature-row { margin-bottom: 14px !important; }
-  .signature-line { height: 35px !important; }
+  .mahr-section { margin: 8px auto !important; }
+  .witness-section { margin: 8px 0 !important; }
+  .witness-header { margin-bottom: 6px !important; font-size: 14px !important; }
+  .ceremony-section { margin: 10px 0 !important; font-size: 13px !important; }
+  .signature-section { margin-top: 14px !important; }
+  .signature-row { margin-bottom: 10px !important; }
+  .signature-line { height: 30px !important; }
   .signature-label { font-size: 12px !important; }
   .signature-name { font-size: 12px !important; }
-  .imam-signature { margin: 14px auto !important; }
-  .imam-bottom { margin-top: 10px !important; font-size: 13px !important; }
+  .imam-signature { margin: 10px auto !important; }
   .certificate { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
   @page {
@@ -616,9 +615,9 @@ body {
   </div>
   
   <div class="mahr-section">
-    <div class="field-row">
-      <div class="field-label">Amount of <em>mahr</em>:</div>
-      <div class="field-line">
+    <div class="field-row" style="justify-content: center;">
+      <div class="field-label" style="width: auto; white-space: nowrap;">Amount of <em>mahr</em>:</div>
+      <div class="field-line" style="flex: 0 1 300px;">
         <div class="field-value" id="mahrOut"></div>
       </div>
     </div>
@@ -722,15 +721,7 @@ body {
         <div class="signature-name" id="imamSigOut"></div>
       </div>
       <div class="signature-label">Signature of Imam</div>
-    </div>
-  </div>
-  
-  <div class="imam-bottom">
-    <div class="field-row">
-      <div class="field-label">Imam's Full Name:</div>
-      <div class="field-line">
-        <div class="field-value" id="imamBottomOut"></div>
-      </div>
+      <div style="margin-top: 8px; font-size: 12px;"><strong>Imam's Full Name:</strong> <span id="imamBottomOut"></span></div>
     </div>
   </div>
 </div>
