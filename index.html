@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Marriage Certificate Generator</title>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
@@ -32,6 +33,7 @@ button {
   margin-top: 20px;
   padding: 12px 25px;
   cursor: pointer;
+  font-size: 16px;
 }
 </style>
 </head>
@@ -81,10 +83,10 @@ button {
 
 <div class="section">
 <h3>Ceremony Date</h3>
-<input id="hijriDay" placeholder="Day">
-<input id="hijriMonth" placeholder="Month">
-<input id="hijriYear" placeholder="14__ (Hijri Year)">
-<input id="gregorianDate" placeholder="Coinciding Gregorian Date">
+<input id="hijriDay" placeholder="Hijri Day">
+<input id="hijriMonth" placeholder="Hijri Month">
+<input id="hijriYear" placeholder="Hijri Year (14__)">
+<input id="gregorianDate" placeholder="Gregorian Date">
 </div>
 
 <div class="section">
@@ -110,55 +112,89 @@ function generatePDF() {
 const { jsPDF } = window.jspdf;
 const doc = new jsPDF("p","mm","a4");
 
+// Get all values properly
+const groomName = document.getElementById("groomName").value;
+const groomDOB = document.getElementById("groomDOB").value;
+const groomAddress = document.getElementById("groomAddress").value;
+const groomStatus = document.getElementById("groomStatus").value;
+
+const brideName = document.getElementById("brideName").value;
+const brideDOB = document.getElementById("brideDOB").value;
+const brideAddress = document.getElementById("brideAddress").value;
+const brideStatus = document.getElementById("brideStatus").value;
+
+const mahr = document.getElementById("mahr").value;
+
+const w1Name = document.getElementById("w1Name").value;
+const w1DOB = document.getElementById("w1DOB").value;
+const w2Name = document.getElementById("w2Name").value;
+const w2DOB = document.getElementById("w2DOB").value;
+
+const hijriDay = document.getElementById("hijriDay").value;
+const hijriMonth = document.getElementById("hijriMonth").value;
+const hijriYear = document.getElementById("hijriYear").value;
+const gregorianDate = document.getElementById("gregorianDate").value;
+
+const groomSig = document.getElementById("groomSig").value;
+const brideSig = document.getElementById("brideSig").value;
+const w1Sig = document.getElementById("w1Sig").value;
+const w2Sig = document.getElementById("w2Sig").value;
+const imamSig = document.getElementById("imamSig").value;
+
+const imamName = document.getElementById("imamName").value;
+const certificateDate = document.getElementById("certificateDate").value;
+
+// Load certificate image
 const img = new Image();
 img.src = "certificate.png.jpeg";
 
 img.onload = function() {
 
 doc.addImage(img,"JPEG",0,0,210,297);
-doc.setFontSize(10);
+doc.setFont("times","normal");
+doc.setFontSize(11);
 
 // ---- GROOM ----
-doc.text(groomName.value, 60, 112);
-doc.text(groomDOB.value, 60, 120);
-doc.text(groomAddress.value, 60, 128);
-doc.text(groomStatus.value, 60, 136);
+doc.text(groomName, 55, 115, { maxWidth: 60 });
+doc.text(groomDOB, 55, 123);
+doc.text(groomAddress, 55, 131, { maxWidth: 60 });
+doc.text(groomStatus, 55, 139);
 
 // ---- BRIDE ----
-doc.text(brideName.value, 140, 112);
-doc.text(brideDOB.value, 140, 120);
-doc.text(brideAddress.value, 140, 128);
-doc.text(brideStatus.value, 140, 136);
+doc.text(brideName, 135, 115, { maxWidth: 60 });
+doc.text(brideDOB, 135, 123);
+doc.text(brideAddress, 135, 131, { maxWidth: 60 });
+doc.text(brideStatus, 135, 139);
 
 // ---- MAHR ----
-doc.text(mahr.value, 75, 150);
+doc.text(mahr.toString(), 80, 152);
 
 // ---- WITNESSES ----
-doc.text(w1Name.value, 60, 170);
-doc.text(w1DOB.value, 60, 178);
-doc.text(w2Name.value, 140, 170);
-doc.text(w2DOB.value, 140, 178);
+doc.text(w1Name, 55, 172);
+doc.text(w1DOB, 55, 180);
+doc.text(w2Name, 135, 172);
+doc.text(w2DOB, 135, 180);
 
 // ---- DATE ----
-doc.text(hijriDay.value + " day of " + hijriMonth.value + " 14" + hijriYear.value, 50, 190);
-doc.text(gregorianDate.value, 130, 190);
+doc.text(`${hijriDay} ${hijriMonth} ${hijriYear}`, 65, 192);
+doc.text(gregorianDate, 145, 192);
 
 // ---- SIGNATURES ----
-doc.text(groomSig.value, 60, 215);
-doc.text(brideSig.value, 140, 215);
-doc.text(w1Sig.value, 60, 230);
-doc.text(w2Sig.value, 140, 230);
-doc.text(imamSig.value, 105, 245);
+doc.text(groomSig, 55, 218);
+doc.text(brideSig, 135, 218);
+doc.text(w1Sig, 55, 233);
+doc.text(w2Sig, 135, 233);
+doc.text(imamSig, 105, 248, { align: "center" });
 
 // ---- IMAM INFO ----
-doc.text(imamName.value, 60, 260);
-doc.text(certificateDate.value, 140, 260);
+doc.text(imamName, 55, 263);
+doc.text(certificateDate, 145, 263);
 
 doc.save("Marriage_Certificate.pdf");
 };
 
 img.onerror = function(){
-alert("Certificate image not found.");
+alert("Certificate image not found. Make sure certificate.png.jpeg is in the same folder.");
 };
 
 }
